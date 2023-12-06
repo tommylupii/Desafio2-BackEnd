@@ -9,7 +9,6 @@ export default class ProductManager {
   }
   static correlativoId = 0;
   addProduct(title, description, price, thumbnail, code, stock) {
-    //id: this.products.length +1,
 
     if (
       title == undefined ||
@@ -21,6 +20,7 @@ export default class ProductManager {
     ) {
       throw new Error("Todos los campos son obligatorios");
     }
+
     let codeExists = this.products.some((dato) => dato.code == code);
 
     if (codeExists) {
@@ -38,14 +38,12 @@ export default class ProductManager {
       };
       this.products.push(newProduct);
     }
-
-    // if () {
-
-    // }
   }
+
   getProducts() {
     return this.products;
   }
+
   getProductById(id) {
     let product = this.products.find((dato) => dato.id === id);
 
@@ -85,7 +83,7 @@ export default class ProductManager {
       return product;
     });
 
-    fs.writeFileSync(filename, JSON.stringify(updatedProducts));
+    fs.writeFileSync(filename, JSON.stringify(this.products));
 
     console.log("actualizacion exitosa");
   }
@@ -110,6 +108,7 @@ export default class ProductManager {
 
 const myFirstPRoducts = new ProductManager()
 
+// PRIMER PRODUCTO
 myFirstPRoducts.addProduct(
   "producto prueba",
   "Este es un producto de prueba",
@@ -119,48 +118,51 @@ myFirstPRoducts.addProduct(
   25
 );
 
-/*myFirstPRoducts.addProduct(
-      "producto prueba",
-      "Este es un producto de prueba",
-      200,
-      "sin imagen",
-      "abc123",
-      25
-    );*/
-/*
-    myFirstPRoducts.addProduct(
-      "Pelota",
-      "De futbol",
-      9.99,
-      "http://imagen.jgp",
-      "123c",
-      23
-    );
-    */
+// DA ERROR PORQUE ESTA REPETIDO
+// myFirstPRoducts.addProduct(
+//       "producto prueba",
+//       "Este es un producto de prueba",
+//       200,
+//       "sin imagen",
+//       "abc123",
+//       25
+//     );
 
+// SEGUNDO PRODUCTO
+myFirstPRoducts.addProduct(
+  "Pelota",
+  "De futbol",
+  9.99,
+  "http://imagen.jgp",
+  "123c",
+  23
+);
+    
+// DA TODOS LOS PRODUCTOS
 // console.log("desde getProducts", myFirstPRoducts.getProducts());
-// console.log("desde getProducts", myFirstPRoducts.getProducts(1));
 
-//console.log("mi producto filtrado  por id", myFirstPRoducts.getProductById(2)); // ok
-//console.log("mi producto filtrado  por id", myFirstPRoducts.getProductById(5)); // error
+// DA EL SEGUNDO PRODUCTO
+// console.log("mi producto filtrado  por id", myFirstPRoducts.getProductById(2)); // ok
 
+// DA ERROR
+// console.log("mi producto filtrado  por id", myFirstPRoducts.getProductById(5)); // error
 
-
-// UPDATEPRODUCT
-// myFirstPRoducts.updateProduct(1, {
-//   title: "New Title",
-//   price: 300,
-//   stock: 30
-// });
-
-// console.log("Updated products:", myFirstPRoducts.getProducts());
-
-
-
-// DELETEPRODUCT
+// DELETE PRODUCT BY ID
 try {
   myFirstPRoducts.deleteProduct(1);
-  console.log("Updated products:", myFirstPRoducts.getProducts());
+  console.log("Producto eliminado:", myFirstPRoducts.getProducts());
 } catch (error) {
   console.error(error.message);
 }
+
+// UPDATE PRODUCT
+// try {
+//   myFirstPRoducts.updateProduct(2, {
+//     title: "Nuevo Título",
+//     price: 300,
+//     stock: 30
+//   });
+//   console.log("Producto actualizado:", myFirstPRoducts.getProducts());
+// } catch (error) {
+//   console.error(error.message);
+// }
